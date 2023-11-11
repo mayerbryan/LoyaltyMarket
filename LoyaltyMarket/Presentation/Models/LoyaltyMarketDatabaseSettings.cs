@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Presentation.Models
 {
     public class LoyaltyMarketDatabaseSettings
     {
-        public string ConnectionString {get;set;} = null!;
-        public string LoyaltyMarketDatabase { get; set; } = null!;
+        public string ConnectionString { get; set; } = null!;
+        public string DatabaseName { get; set; } = null!;
 
         public string ProductsCollectionName { get; set; } = null!;
 
-        public string CategoriesCollectionName {get; set;} = null!;
+        public string CategoriesCollectionName { get; set; } = null!;
     }
 }
