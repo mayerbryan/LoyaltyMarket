@@ -6,6 +6,7 @@ using Amazon.Runtime.Internal;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using Presentation.Models;
+using MongoDB.Bson;
 
 namespace Presentation.Services
 {
@@ -20,8 +21,33 @@ namespace Presentation.Services
                 _ProductsCollection = mongoDatabase.GetCollection<Product>(loyaltyMarketDatabaseSettings.Value.ProductsCollectionName);
         }
 
-        public async Task<List<Product>> GetAllAsync() =>
-            await _ProductsCollection.Find(_ => true).ToListAsync();
+        public async Task<List<Product>> GetAllAsync() 
+        {
+            var pipeline = new BsonDocument[]
+            {
+                new BsonDocument("$lookup", new BsonDocument
+                {
+                    { "from", "CategoriesCollection" },
+                    { "localField", "CategoryId" },
+                    { "foreignField", "_id" },
+                    { "as", "product_category" }
+                }),
+                new BsonDocument("$unwind", "$product_category"),
+                new BsonDocument("$project", new BsonDocument{
+                    { "_id", 1},
+                    { "CategoryId", 1},
+                    { "Name", 1},
+                    { "Description", 1},
+                    { "Price", 1},
+                    { "Color", 1},
+                    { "CategoryName", "$product_category.Name" }
+                })
+            };
+
+            var results = await _ProductsCollection.Aggregate<Product>(pipeline).ToListAsync();
+            return results;
+
+        }
 
         public async Task<Product?> GetByIdAsync(string id) =>
             await _ProductsCollection.Find(x => x.Id == id).FirstOrDefaultAsync();

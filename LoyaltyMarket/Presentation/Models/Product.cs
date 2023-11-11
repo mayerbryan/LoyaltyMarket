@@ -33,5 +33,8 @@ namespace Presentation.Models
         [BsonElement("Color")]
         [BsonRequired]
         public string? Color { get; set; }
+
+        [BsonIgnoreIfNull]
+        public string? CategoryName { get; set; }
     }
 }

@@ -10,11 +10,11 @@ builder.Services.AddControllers();
 builder.Services.Configure<LoyaltyMarketDatabaseSettings>(builder.Configuration.GetSection("LoyaltyMarketDatabase"));
 
 //product dependancies
-//builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<ProductService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 
 //category dependancies
-//builder.Services.AddSingleton<CategoryService>();
+builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 

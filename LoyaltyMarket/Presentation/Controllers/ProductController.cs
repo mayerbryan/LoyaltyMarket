@@ -37,6 +37,7 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Product newProduct)
         {
+            newProduct.CategoryName = null;
             await _ProductsService.CreateAsync(newProduct);
 
             return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
@@ -45,6 +46,7 @@ namespace Presentation.Controllers
         [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, Product updatedProduct)
         {
+            updatedProduct.CategoryName = null;
             var Product = await _ProductsService.GetByIdAsync(id);
 
             if (Product is null)
