@@ -1,77 +1,74 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Presentation.Services;
-using Presentation.Models;
 
-namespace Presentation.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductController : ControllerBase
-    {
-        private readonly ProductService _ProductsService;
+// using Microsoft.AspNetCore.Mvc;
 
-        public ProductController(ProductService ProductsService) =>
-            _ProductsService = ProductsService;
+// namespace Presentation.Controllers
+// {
+//     [ApiController]
+//     [Route("api/[controller]")]
+//     public class ProductController : ControllerBase
+//     {
+//         private readonly ProductService _ProductsService;
 
-        [HttpGet]
-        public async Task<List<Product>> Get() =>
-            await _ProductsService.GetAllAsync();
+//         public ProductController(ProductService ProductsService) =>
+//             _ProductsService = ProductsService;
 
-        [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<Product>> Get(string id)
-        {
-            var Product = await _ProductsService.GetByIdAsync(id);
+//         [HttpGet]
+//         public async Task<List<Product>> Get() =>
+//             await _ProductsService.GetAllAsync();
 
-            if (Product is null)
-            {
-                return NotFound();
-            }
+//         [HttpGet("{id:length(24)}")]
+//         public async Task<ActionResult<Product>> Get(string id)
+//         {
+//             var Product = await _ProductsService.GetByIdAsync(id);
 
-            return Product;
-        }
+//             if (Product is null)
+//             {
+//                 return NotFound();
+//             }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(Product newProduct)
-        {
-            await _ProductsService.CreateAsync(newProduct);
+//             return Product;
+//         }
 
-            return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
-        }
+//         [HttpPost]
+//         public async Task<IActionResult> Post(Product newProduct)
+//         {
+//             newProduct.CategoryName = null;
+//             await _ProductsService.CreateAsync(newProduct);
 
-        [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Product updatedProduct)
-        {
-            var Product = await _ProductsService.GetByIdAsync(id);
+//             return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
+//         }
 
-            if (Product is null)
-            {
-                return NotFound();
-            }
+//         [HttpPut("{id:length(24)}")]
+//         public async Task<IActionResult> Update(string id, Product updatedProduct)
+//         {
+//             updatedProduct.CategoryName = null;
+//             var Product = await _ProductsService.GetByIdAsync(id);
 
-            updatedProduct.Id = Product.Id;
+//             if (Product is null)
+//             {
+//                 return NotFound();
+//             }
 
-            await _ProductsService.UpdateAsync(id, updatedProduct);
+//             updatedProduct.Id = Product.Id;
 
-            return NoContent();
-        }
+//             await _ProductsService.UpdateAsync(id, updatedProduct);
 
-        [HttpDelete("{id:length(24)}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var Product = await _ProductsService.GetByIdAsync(id);
+//             return NoContent();
+//         }
 
-            if (Product is null)
-            {
-                return NotFound();
-            }
+//         [HttpDelete("{id:length(24)}")]
+//         public async Task<IActionResult> Delete(string id)
+//         {
+//             var Product = await _ProductsService.GetByIdAsync(id);
 
-            await _ProductsService.RemoveAsync(id);
+//             if (Product is null)
+//             {
+//                 return NotFound();
+//             }
 
-            return NoContent();
-        }
-    }
-}
+//             await _ProductsService.RemoveAsync(id);
+
+//             return NoContent();
+//         }
+//     }
+// }

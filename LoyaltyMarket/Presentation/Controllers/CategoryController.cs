@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Services;
-using Presentation.Models;
+using Domain.Services;
+using Domain.Models;
+using System.Net;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
 
 namespace Presentation.Controllers
 {
@@ -12,66 +12,72 @@ namespace Presentation.Controllers
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        private readonly CategoryService _categorysService;
+        private readonly ICategoryService _categorysService;
 
-        public CategoryController(CategoryService categorysService) =>
+        public CategoryController(ICategoryService categorysService) =>
             _categorysService = categorysService;
 
+        /// <summary>
+        /// Return all the categories for list porpouse
+        /// </summary>
+        /// <returns>List of Categories Summarized</returns>
         [HttpGet]
-        public async Task<List<Category>> Get() =>
-            await _categorysService.GetAllAsync();
-
-        [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<Category>> Get(string id)
+        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Get(CancellationToken token)
         {
-            var Category = await _categorysService.GetByIdAsync(id);
-
-            if (Category is null)
+            try
             {
-                return NotFound();
-            }
+                var modelList = await _categorysService.GetAllAsync(token);
 
-            return Category;
+                return Ok(modelList);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Category newCategory)
+        public async Task<IActionResult> Post(CategoryRequestModel newCategory)
         {
-            await _categorysService.CreateAsync(newCategory);
+            try
+            {await _categorysService.CreateAsync(newCategory);
 
-            return CreatedAtAction(nameof(Get), new { id = newCategory.Id }, newCategory);
+            return Ok();
+            }catch(Exception exception){
+                return BadRequest(exception);
+            }
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Category updatedCategory)
+        public async Task<IActionResult> Update(string id, [FromBody]CategoryRequestModel categoryToUpdate)
         {
-            var Category = await _categorysService.GetByIdAsync(id);
-
-            if (Category is null)
-            {
-                return NotFound();
+           try
+            { 
+                Console.WriteLine("chegou no controller");
+                await _categorysService.UpdateAsync(id, categoryToUpdate);
+                return Ok();
             }
-
-            updatedCategory.Id = Category.Id;
-
-            await _categorysService.UpdateAsync(id, updatedCategory);
-
-            return NoContent();
+            catch(Exception exception)
+            {
+                return BadRequest(exception);
+            }
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var Category = await _categorysService.GetByIdAsync(id);
-
-            if (Category is null)
+            try
             {
-                return NotFound();
+                await _categorysService.RemoveAsync(id);
+                return Ok();
             }
-
-            await _categorysService.RemoveAsync(id);
-
-            return NoContent();
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

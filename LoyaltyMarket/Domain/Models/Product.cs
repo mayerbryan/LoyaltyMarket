@@ -2,7 +2,7 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Presentation.Models
+namespace Domain.Models
 {
     public class Product
     {
@@ -33,5 +33,8 @@ namespace Presentation.Models
         [BsonElement("Color")]
         [BsonRequired]
         public string? Color { get; set; }
+
+        [BsonIgnoreIfNull]
+        public string? CategoryName { get; set; }
     }
 }
