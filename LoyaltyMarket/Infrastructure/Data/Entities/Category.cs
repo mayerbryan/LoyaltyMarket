@@ -1,24 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Presentation.Models
+namespace Infrastructure.Data.Entities
 {
     public class Category
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("Name")]
         [BsonRequired]
-        public string? Name { get; set; }
+        public required string Name { get; set; }
 
         [BsonElement("Description")]
         [BsonRequired]
-        public string? Description { get; set; }
+        public required string Description { get; set; }
     }
 }

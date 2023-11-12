@@ -1,5 +1,7 @@
-using Presentation.Models;
-using Presentation.Services;
+using Domain.Services;
+using Infrastructure.Configuration;
+using Infrastructure.Data;
+using Infrastructure.Data.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +12,15 @@ builder.Services.AddControllers();
 builder.Services.Configure<LoyaltyMarketDatabaseSettings>(builder.Configuration.GetSection("LoyaltyMarketDatabase"));
 
 //product dependancies
-builder.Services.AddSingleton<ProductService>();
-builder.Services.AddTransient<IProductService, ProductService>();
+//builder.Services.AddSingleton<ProductService>();
+//builder.Services.AddTransient<IProductService, ProductService>();
 
-//category dependancies
-builder.Services.AddSingleton<CategoryService>();
+//Service dependancies
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+
+//Infrastructure dependancies
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IMongoConfiguration, MongoConfiguration>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,7 +37,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseAuthorization();
 
 app.MapControllers();
