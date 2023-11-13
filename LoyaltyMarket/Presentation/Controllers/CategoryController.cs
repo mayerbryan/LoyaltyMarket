@@ -3,8 +3,6 @@ using Domain.Services;
 using Domain.Models;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
 
 namespace Presentation.Controllers
 {
@@ -17,13 +15,12 @@ namespace Presentation.Controllers
         public CategoryController(ICategoryService categorysService) =>
             _categorysService = categorysService;
 
-       
+        // TODO : ensure category id is empty to be assigned by the database
         /// <summary>
         /// Create the category document
         /// </summary>
         /// <returns> </returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpPost]
@@ -42,10 +39,11 @@ namespace Presentation.Controllers
         /// Return all the categories for list porpouse
         /// </summary>
         /// <returns>List of Categories Summarized</returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        
+        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
+        [HttpGet]
         public async Task<IActionResult> Get(CancellationToken token)
         {
             try
@@ -61,11 +59,10 @@ namespace Presentation.Controllers
         }
         
         /// <summary>
-        /// Returns an specific document selected by the Id
+        /// Returns an specific category selected by the Id
         /// </summary>
         /// <returns> </returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpGet("{id:length(24)}")]
@@ -87,12 +84,11 @@ namespace Presentation.Controllers
         /// Updates the category fields based on the provided Id
         /// </summary>
         /// <returns> </returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, [FromBody]CategoryRequestModel categoryToUpdate)
+        public async Task<IActionResult> Update(string id, [FromBody]CategoryUpdateModel categoryToUpdate)
         {
             try
             {                
@@ -109,8 +105,7 @@ namespace Presentation.Controllers
         /// Delete the category document based on the provided Id
         /// </summary>
         /// <returns> </returns>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpDelete("{id:length(24)}")]

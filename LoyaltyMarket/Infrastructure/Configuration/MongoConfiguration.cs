@@ -21,9 +21,9 @@ namespace Infrastructure.Configuration
             return _mongoDatabase.GetCollection<Category>(_loyaltyMarketDatabaseSettings.Value.CategoriesCollectionName);
         }
 
-        // public IMongoCollection<Product> GetProductCollection()
-        // {
-        //     return _mongoDatabase.GetCollection<Product>(_loyaltyMarketDatabaseSettings.Value.ProductsCollectionName);
-        // }
+        public IMongoCollection<Product> GetProductCollection()
+        {
+            return _mongoDatabase.GetCollection<Product>(_loyaltyMarketDatabaseSettings.Value.ProductsCollectionName);
+        }
     }
 }

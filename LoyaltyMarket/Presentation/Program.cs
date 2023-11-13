@@ -2,7 +2,6 @@ using Domain.Services;
 using Infrastructure.Configuration;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
-using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,15 +11,13 @@ builder.Services.AddControllers();
 //DB connection settings
 builder.Services.Configure<LoyaltyMarketDatabaseSettings>(builder.Configuration.GetSection("LoyaltyMarketDatabase"));
 
-//product dependancies
-//builder.Services.AddSingleton<ProductService>();
-//builder.Services.AddTransient<IProductService, ProductService>();
-
 //Service dependancies
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 //Infrastructure dependancies
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IMongoConfiguration, MongoConfiguration>();
 
 

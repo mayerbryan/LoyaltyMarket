@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -8,7 +7,6 @@ namespace Infrastructure.Data.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        //[BsonRepresentation(BsonType.Int32)]
         public string? Id { get; set; }
 
         [BsonElement("Name")]

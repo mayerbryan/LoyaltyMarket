@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Amazon.Runtime.Internal;
-using MongoDB.Driver;
-using Microsoft.Extensions.Options;
 using Domain.Models;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Entities;
-using MongoDB.Bson;
 
 namespace Domain.Services
 {
@@ -41,7 +33,7 @@ namespace Domain.Services
             return response;
         }
 
-        public async Task UpdateAsync(string id, CategoryRequestModel model, CancellationToken cancellationToken = default)
+        public async Task UpdateAsync(string id, CategoryUpdateModel model, CancellationToken cancellationToken = default)
         {
             await _categoryRepository.UpdateAsync(id, model, cancellationToken);
         }
