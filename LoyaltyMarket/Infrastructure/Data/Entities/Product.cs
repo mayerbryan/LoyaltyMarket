@@ -26,7 +26,7 @@ namespace Infrastructure.Data.Entities
 
         [BsonRequired]
         [BsonElement("Category")]
-        public required string Category { get; set; }
+        public required string CategoryId { get; set; }
 
         [BsonRequired]
         [BsonElement("Color")]
