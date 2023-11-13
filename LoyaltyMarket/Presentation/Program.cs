@@ -2,6 +2,7 @@ using Domain.Services;
 using Infrastructure.Configuration;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
+using MongoDB.Bson;
 
 var builder = WebApplication.CreateBuilder(args);
 

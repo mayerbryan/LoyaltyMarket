@@ -17,6 +17,27 @@ namespace Presentation.Controllers
         public CategoryController(ICategoryService categorysService) =>
             _categorysService = categorysService;
 
+       
+        /// <summary>
+        /// Create the category document
+        /// </summary>
+        /// <returns> </returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
+        [HttpPost]
+        public async Task<IActionResult> Post(CategoryRequestModel newCategory)
+        {
+            try
+            {await _categorysService.CreateAsync(newCategory);
+
+            return Ok();
+            }catch(Exception exception){
+                return BadRequest(exception);
+            }
+        }
+
         /// <summary>
         /// Return all the categories for list porpouse
         /// </summary>
@@ -38,25 +59,43 @@ namespace Presentation.Controllers
                 return BadRequest();
             }
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(CategoryRequestModel newCategory)
+        
+        /// <summary>
+        /// Returns an specific document selected by the Id
+        /// </summary>
+        /// <returns> </returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
+        [HttpGet("{id:length(24)}")]
+        public async Task<IActionResult> GetById(string id)
         {
             try
-            {await _categorysService.CreateAsync(newCategory);
+            {
+                var category = await _categorysService.GetById(id);
 
-            return Ok();
-            }catch(Exception exception){
-                return BadRequest(exception);
+                return Ok(category);
+            }
+            catch
+            {
+                return BadRequest();
             }
         }
-
+        
+        /// <summary>
+        /// Updates the category fields based on the provided Id
+        /// </summary>
+        /// <returns> </returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, [FromBody]CategoryRequestModel categoryToUpdate)
         {
-           try
-            { 
-                Console.WriteLine("chegou no controller");
+            try
+            {                
                 await _categorysService.UpdateAsync(id, categoryToUpdate);
                 return Ok();
             }
@@ -66,6 +105,14 @@ namespace Presentation.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete the category document based on the provided Id
+        /// </summary>
+        /// <returns> </returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<CategorySummaryResponseModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {

@@ -5,10 +5,11 @@ namespace Infrastructure.Data.Interfaces
 {
     public interface ICategoryRepository
     {
-        Task<List<Category>> GetAllAsync(CancellationToken token  = default);
         Task CreateAsync(Category category);
-        Task UpdateAsync(string id, Category category);
-        Task RemoveAsync(string id);
-        Task<bool> ExistsAsync(string id);
+        Task<List<Category>> GetAllAsync(CancellationToken token  = default);
+        Task<Category> GetById(string id, CancellationToken cancellationToken = default);
+        Task UpdateAsync(string id, Category category, CancellationToken cancellationToken = default);        
+        Task RemoveAsync(string id, CancellationToken cancellationToken = default);
+        Task<bool> ExistsAsync(string id, CancellationToken cancellationToken = default);
     }
 }
