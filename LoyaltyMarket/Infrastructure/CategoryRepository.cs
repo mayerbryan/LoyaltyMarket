@@ -1,7 +1,6 @@
 using Infrastructure.Configuration;
 using Infrastructure.Data.Entities;
 using Infrastructure.Data.Interfaces;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Infrastructure.Data
