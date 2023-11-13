@@ -8,7 +8,8 @@ namespace Infrastructure.Data.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        //[BsonRepresentation(BsonType.Int32)]
+        public string? Id { get; set; }
 
         [BsonElement("Name")]
         [BsonRequired]
