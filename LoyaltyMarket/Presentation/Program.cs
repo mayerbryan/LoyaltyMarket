@@ -5,6 +5,16 @@ using Infrastructure.Data.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAny", builder =>
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod());
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -25,17 +35,20 @@ builder.Services.AddTransient<IMongoConfiguration, MongoConfiguration>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseCors("AllowAny");
+
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+//app.UseHttpsRedirection();
+
 app.UseAuthorization();
 
 app.MapControllers();

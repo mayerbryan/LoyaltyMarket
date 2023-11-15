@@ -12,7 +12,7 @@ namespace Domain.Models
 
         public decimal Price { get; set; }
 
-        public string Category { get; set; }
+        public string CategoryId { get; set; }
 
         public string Color { get; set; }
 
@@ -27,7 +27,7 @@ namespace Domain.Models
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Category = product.Category,
+                CategoryId = product.CategoryId,
                 Color = product.Color
             };
 

@@ -18,7 +18,7 @@ namespace Domain.Models
         public decimal Price { get; set; }
 
         [Required]
-        public string Category { get; set; }
+        public string CategoryId { get; set; }
 
         [Required]
         public string Color { get; set; }
@@ -33,7 +33,7 @@ namespace Domain.Models
                 Name = model.Name,
                 Description = model.Description,
                 Price = model.Price,
-                Category = model.Category,
+                CategoryId = model.CategoryId,
                 Color = model.Color
             };
         }

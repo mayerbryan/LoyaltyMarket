@@ -8,6 +8,7 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[RequireHttps]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categorysService;
@@ -48,6 +49,7 @@ namespace Presentation.Controllers
         {
             try
             {
+                
                 var modelList = await _categorysService.GetAllAsync(token);
 
                 return Ok(modelList);

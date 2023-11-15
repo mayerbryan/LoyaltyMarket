@@ -2,19 +2,22 @@ using Infrastructure.Data.Entities;
 
 namespace Domain.Models
 {
-    public class CategorySummaryResponseModel
+    public class CategoryResponseModel
     {
         public required string Id { get; set; }
         public required string Name { get; set; }
 
-        public static implicit operator CategorySummaryResponseModel(Category entity)
+        public required string Description { get; set;}
+
+        public static implicit operator CategoryResponseModel(Category entity)
         {
             ArgumentException.ThrowIfNullOrEmpty(entity.Id.ToString());
 
-            var model = new CategorySummaryResponseModel()
+            var model = new CategoryResponseModel()
             {
                 Id = entity.Id.ToString(),
-                Name = entity.Name
+                Name = entity.Name,
+                Description = entity.Description
             };
 
             return model;

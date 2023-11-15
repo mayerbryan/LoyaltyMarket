@@ -19,17 +19,17 @@ namespace Domain.Services
             await _categoryRepository.CreateAsync(entity);
         }   
 
-        public async Task<IEnumerable<CategorySummaryResponseModel>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<CategoryResponseModel>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var resultList = await _categoryRepository.GetAllAsync(cancellationToken);
-            var modelList = resultList.Select(item => (CategorySummaryResponseModel)item);            
+            var modelList = resultList.Select(item => (CategoryResponseModel)item);            
             return modelList;
         }
 
-        public async Task<CategorySummaryResponseModel> GetById(string id, CancellationToken cancellationToken = default)
+        public async Task<CategoryResponseModel> GetById(string id, CancellationToken cancellationToken = default)
         {
-            CategorySummaryResponseModel response = await _categoryRepository.GetById(id, cancellationToken);
+            CategoryResponseModel response = await _categoryRepository.GetById(id, cancellationToken);
             return response;
         }
 

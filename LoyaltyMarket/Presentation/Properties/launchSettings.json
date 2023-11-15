@@ -4,27 +4,18 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://192.168.0.100:28094",
+      "applicationUrl": "https://192.168.0.100:28094",
       "sslPort": 44324
     }
   },
   "profiles": {
+    
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://192.168.0.100:5159",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://192.168.0.100:7233;http://192.168.0.100:5159",
+      "applicationUrl": "http://192.168.0.100:7233;http://192.168.0.100:5159",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
