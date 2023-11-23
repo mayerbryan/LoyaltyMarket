@@ -1,6 +1,6 @@
-using Infrastructure.Data.Entities;
+using Infrastructure.Entities;
 
-namespace Domain.Models
+namespace Domain.Models.CategoryModels
 {
     public class CategoryResponseModel
     {

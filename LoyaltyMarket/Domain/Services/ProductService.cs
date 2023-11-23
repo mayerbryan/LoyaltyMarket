@@ -1,6 +1,7 @@
-using Domain.Models;
-using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Entities;
+using Domain.Models.ProductModels;
+using Infrastructure.Entities;
+using Infrastructure.Interfaces;
+
 
 namespace Domain.Services
 {
@@ -13,10 +14,10 @@ namespace Domain.Services
             _ProductRepository = ProductRepository;
         }
 
-        public async Task CreateAsync(ProductRequestModel model)
+        public async Task CreateAsync(ProductRequestModel model, CancellationToken cancellationToken  = default)
         {
             Product entity = model;
-            await _ProductRepository.CreateAsync(entity);
+            await _ProductRepository.CreateAsync(entity, cancellationToken);
         }   
 
         public async Task<IEnumerable<ProductResponseModel>> GetAllAsync(CancellationToken cancellationToken = default)

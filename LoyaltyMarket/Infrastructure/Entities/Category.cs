@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Infrastructure.Data.Entities
+namespace Infrastructure.Entities
 {
     public class Category
     {

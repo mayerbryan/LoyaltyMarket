@@ -1,6 +1,6 @@
-using Domain.Models;
-using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Entities;
+using Infrastructure.Interfaces;
+using Infrastructure.Entities;
+using Domain.Models.CategoryModels;
 
 namespace Domain.Services
 {
@@ -13,7 +13,7 @@ namespace Domain.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task CreateAsync(CategoryRequestModel model)
+        public async Task CreateAsync(CategoryRequestModel model, CancellationToken cancellationToken = default )
         {
             Category entity = model;
             await _categoryRepository.CreateAsync(entity);

@@ -1,6 +1,6 @@
 using Infrastructure.Configuration;
-using Infrastructure.Data.Entities;
-using Infrastructure.Data.Interfaces;
+using Infrastructure.Entities;
+using Infrastructure.Interfaces;
 using MongoDB.Driver;
 
 namespace Infrastructure.Data
@@ -14,7 +14,7 @@ namespace Infrastructure.Data
             _productsCollection = mongoConfiguration.GetProductCollection();
         }
 
-        public async Task CreateAsync(Product newProduct) =>
+        public async Task CreateAsync(Product newProduct, CancellationToken cancellationToken  = default) =>
             await _productsCollection.InsertOneAsync(newProduct);
         
         public async Task<List<Product>> GetAllAsync(CancellationToken token = default) {
