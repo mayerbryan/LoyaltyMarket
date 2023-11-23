@@ -1,12 +1,14 @@
-using Infrastructure.Data.Entities;
+using Infrastructure.Entities;
 
-namespace Domain.Models
+namespace Domain.Models.CategoryModels
 {
     public class CategoryRequestModel
     {
         public required string Id { get; set; }
         public required string Name { get; set; }
-        public required string Description { get; set; }        
+        public required string Description { get; set; }
+
+        
 
         public static implicit operator Category(CategoryRequestModel model)
         {

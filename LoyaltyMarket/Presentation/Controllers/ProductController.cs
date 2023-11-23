@@ -3,6 +3,7 @@ using Domain.Services;
 using Domain.Models;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Domain.Models.ProductModels;
 
 namespace Presentation.Controllers
 {
@@ -70,7 +71,7 @@ namespace Presentation.Controllers
         /// Returns an specific product selected by the Id
         /// </summary>
         /// <returns> Return a especific product using the given Id </returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpGet("{id:length(24)}")]
@@ -99,7 +100,7 @@ namespace Presentation.Controllers
         /// Updates the Product fields based on the provided Id
         /// </summary>
         /// <returns> Updates the product using the given Id and returns Ok when successfull </returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpPut("{id:length(24)}")]
@@ -120,7 +121,7 @@ namespace Presentation.Controllers
         /// Delete the Product document based on the provided Id
         /// </summary>
         /// <returns> Returns ok when the product is deleted successfully </returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpDelete("{id:length(24)}")]

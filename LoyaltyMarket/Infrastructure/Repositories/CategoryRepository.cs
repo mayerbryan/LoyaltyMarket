@@ -1,6 +1,6 @@
 using Infrastructure.Configuration;
-using Infrastructure.Data.Entities;
-using Infrastructure.Data.Interfaces;
+using Infrastructure.Entities;
+using Infrastructure.Interfaces;
 using MongoDB.Driver;
 
 namespace Infrastructure.Data

@@ -2,9 +2,9 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Presentation.Controllers;
-using Domain.Models;
 using Domain.Services;
 using Xunit;
+using Domain.Models.ProductModels;
 
 namespace Tests.Presentation.Controllers
 {

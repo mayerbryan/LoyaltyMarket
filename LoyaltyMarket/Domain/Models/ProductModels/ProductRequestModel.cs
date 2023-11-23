@@ -1,7 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-using Infrastructure.Data.Entities;
+using Infrastructure.Entities;
 
-namespace Domain.Models
+namespace Domain.Models.ProductModels
 {
     public class ProductRequestModel
     {

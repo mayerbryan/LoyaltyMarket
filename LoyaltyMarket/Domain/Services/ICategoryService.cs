@@ -1,4 +1,4 @@
-using Domain.Models;
+using Domain.Models.CategoryModels;
 
 namespace Domain.Services
 {

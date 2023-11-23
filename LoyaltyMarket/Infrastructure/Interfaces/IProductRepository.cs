@@ -1,7 +1,7 @@
 
-using Infrastructure.Data.Entities;
+using Infrastructure.Entities;
 
-namespace Infrastructure.Data.Interfaces
+namespace Infrastructure.Interfaces
 {
     public interface IProductRepository
     {

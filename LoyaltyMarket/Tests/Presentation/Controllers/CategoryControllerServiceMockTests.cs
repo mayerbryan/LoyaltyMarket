@@ -5,6 +5,7 @@ using Presentation.Controllers;
 using Domain.Models;
 using Domain.Services;
 using Xunit;
+using Domain.Models.CategoryModels;
 
 namespace Tests.Presentation.Controllers
 {

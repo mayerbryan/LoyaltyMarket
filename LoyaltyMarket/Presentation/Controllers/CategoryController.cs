@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Domain.Services;
-using Domain.Models;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Domain.Models.CategoryModels;
 
 namespace Presentation.Controllers
 {
@@ -20,7 +20,7 @@ namespace Presentation.Controllers
         /// Create the category document
         /// </summary>
         /// <returns> Returns ok when the cateogry is created successfully</returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpPost]
@@ -48,7 +48,7 @@ namespace Presentation.Controllers
         /// Return all the categories for list porpouse
         /// </summary>
         /// <returns>List of Categories Summarized</returns>        
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpGet]
@@ -70,7 +70,7 @@ namespace Presentation.Controllers
         /// Returns an specific category selected by the Id
         /// </summary>
         /// <returns> Return the provided category selected by Id </returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpGet("{id:length(24)}")]
@@ -98,7 +98,7 @@ namespace Presentation.Controllers
         /// Updates the category fields based on the provided Id
         /// </summary>
         /// <returns> Updates the provided category based on the Id</returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpPut("{id:length(24)}")]
@@ -119,7 +119,7 @@ namespace Presentation.Controllers
         /// Delete the category document based on the provided Id
         /// </summary>
         /// <returns> Return ok when the category is delte successfully</returns>
-        [ProducesResponseType(typeof(IEnumerable<CategoryRequestModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<CategoryResponseModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(IActionResult), (int)HttpStatusCode.InternalServerError)]
         [HttpDelete("{id:length(24)}")]

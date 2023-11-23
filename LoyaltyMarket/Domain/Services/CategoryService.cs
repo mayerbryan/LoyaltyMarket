@@ -1,6 +1,6 @@
-using Domain.Models;
-using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Entities;
+using Infrastructure.Interfaces;
+using Infrastructure.Entities;
+using Domain.Models.CategoryModels;
 
 namespace Domain.Services
 {

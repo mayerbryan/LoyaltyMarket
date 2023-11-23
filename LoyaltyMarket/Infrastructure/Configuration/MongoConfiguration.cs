@@ -1,4 +1,4 @@
-using Infrastructure.Data.Entities;
+using Infrastructure.Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

@@ -1,4 +1,4 @@
-using Infrastructure.Data.Entities;
+using Infrastructure.Entities;
 using MongoDB.Driver;
 
 namespace Infrastructure.Configuration
