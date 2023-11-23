@@ -30,6 +30,11 @@ namespace Domain.Services
         public async Task<CategoryResponseModel> GetById(string id, CancellationToken cancellationToken = default)
         {
             CategoryResponseModel response = await _categoryRepository.GetById(id, cancellationToken);
+            if (response == null)
+            {
+                return null;
+            }
+
             return response;
         }
 

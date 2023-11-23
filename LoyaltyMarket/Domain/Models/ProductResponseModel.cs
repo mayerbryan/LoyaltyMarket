@@ -19,6 +19,12 @@ namespace Domain.Models
 
         public static implicit operator ProductResponseModel(Product product)
         {
+            if (product == null)
+            {
+                // Handle the case where product is null, e.g., return a default instance
+                return new ProductResponseModel();
+            }
+            
             ArgumentException.ThrowIfNullOrEmpty(product.Id.ToString());
 
             var model = new ProductResponseModel()

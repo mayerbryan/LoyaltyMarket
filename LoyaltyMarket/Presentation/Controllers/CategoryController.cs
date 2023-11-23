@@ -16,7 +16,7 @@ namespace Presentation.Controllers
         public CategoryController(ICategoryService categorysService) =>
             _categorysService = categorysService;
 
-        // TODO : ensure category id is empty to be assigned by the database
+        
         /// <summary>
         /// Create the category document
         /// </summary>
@@ -27,12 +27,21 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CategoryRequestModel newCategory)
         {
+            
             try
-            {await _categorysService.CreateAsync(newCategory);
+            {
+                if (string.IsNullOrEmpty(newCategory.Name) || string.IsNullOrEmpty(newCategory.Description))
+                {
+                    return BadRequest();
+                }
 
-            return Ok();
-            }catch(Exception exception){
-                return BadRequest(exception);
+                await _categorysService.CreateAsync(newCategory);
+
+                return Ok();
+            }
+            catch(Exception exception)
+            {
+                return NotFound(exception);
             }
         }
 
@@ -49,14 +58,13 @@ namespace Presentation.Controllers
         {
             try
             {
-                
                 var modelList = await _categorysService.GetAllAsync(token);
 
                 return Ok(modelList);
             }
-            catch
+            catch(Exception exception)
             {
-                return BadRequest();
+                return NotFound(exception);
             }
         }
         
@@ -74,12 +82,18 @@ namespace Presentation.Controllers
             {
                 var category = await _categorysService.GetById(id);
 
+                if (category == null)
+                {
+                    return NotFound();
+                }
+
                 return Ok(category);
             }
-            catch
+            catch(Exception exception)
             {
-                return BadRequest();
+                return NotFound(exception);
             }
+
         }
         
         /// <summary>
@@ -97,9 +111,9 @@ namespace Presentation.Controllers
                 await _categorysService.UpdateAsync(id, categoryToUpdate);
                 return Ok();
             }
-            catch(Exception exception)
+            catch
             {
-                return BadRequest(exception);
+                return NotFound();
             }
         }
 
@@ -116,11 +130,12 @@ namespace Presentation.Controllers
             try
             {
                 await _categorysService.RemoveAsync(id);
+                
                 return Ok();
             }
             catch
             {
-                return BadRequest();
+                return NotFound();
             }
         }
     }

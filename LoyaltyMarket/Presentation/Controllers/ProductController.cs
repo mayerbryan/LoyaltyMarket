@@ -28,9 +28,17 @@ namespace Presentation.Controllers
         public async Task<IActionResult> Post(ProductRequestModel newProduct)
         {
             try
-            {await _productsService.CreateAsync(newProduct);
-
-            return Ok();
+            {
+                await _productsService.CreateAsync(newProduct);
+                if (string.IsNullOrEmpty(newProduct.Name) ||
+                    string.IsNullOrEmpty(newProduct.Description) ||
+                    newProduct.Price <= 0 ||
+                    string.IsNullOrEmpty(newProduct.CategoryId) ||
+                    string.IsNullOrEmpty(newProduct.Color))
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }catch(Exception exception){
                 return BadRequest(exception);
             }
@@ -53,9 +61,9 @@ namespace Presentation.Controllers
 
                 return Ok(modelList);
             }
-            catch
+            catch(Exception exception)
             {
-                return BadRequest();
+                return BadRequest(exception);
             }
         }
         
@@ -71,13 +79,20 @@ namespace Presentation.Controllers
         {
             try
             {
-                var Product = await _productsService.GetById(id);
+                var product = await _productsService.GetById(id);
+                if (product == null)
+                {
+                    Console.WriteLine("Returning NotFound");
+                    return NotFound();
+                }
 
-                return Ok(Product);
+                Console.WriteLine("Returning Ok");
+                return Ok(product);
             }
-            catch
+            catch (Exception exception)
             {
-                return BadRequest();
+                Console.WriteLine(exception);
+                return BadRequest(exception);
             }
         }
         
@@ -96,9 +111,9 @@ namespace Presentation.Controllers
                 await _productsService.UpdateAsync(id, ProductToUpdate);
                 return Ok();
             }
-            catch(Exception exception)
+            catch
             {
-                return BadRequest(exception);
+                return NotFound();
             }
         }
 
@@ -119,7 +134,7 @@ namespace Presentation.Controllers
             }
             catch
             {
-                return BadRequest();
+                return NotFound();
             }
         }
     }

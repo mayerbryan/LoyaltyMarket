@@ -1,3 +1,4 @@
+using System.Net;
 using Domain.Services;
 using Infrastructure.Configuration;
 using Infrastructure.Data;
@@ -7,13 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Configure CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAny", builder =>
-        builder.AllowAnyOrigin()
-               .AllowAnyHeader()
-               .AllowAnyMethod());
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowAny", builder =>
+//         builder.AllowAnyOrigin()
+//                .AllowAnyMethod()
+//                .AllowAnyHeader());
+// });
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -30,8 +31,14 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IMongoConfiguration, MongoConfiguration>();
 
+// builder.Services.AddHttpsRedirection(options =>
+// {
+//     options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
+//     options.HttpsPort = 5159;
+// });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+//Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -47,7 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
