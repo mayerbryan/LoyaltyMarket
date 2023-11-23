@@ -18,3 +18,5 @@ namespace Infrastructure.Data.Entities
         public required string Description { get; set; }
     }
 }
+
+
