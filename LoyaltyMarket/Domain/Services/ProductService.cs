@@ -13,10 +13,10 @@ namespace Domain.Services
             _ProductRepository = ProductRepository;
         }
 
-        public async Task CreateAsync(ProductRequestModel model)
+        public async Task CreateAsync(ProductRequestModel model, CancellationToken cancellationToken  = default)
         {
             Product entity = model;
-            await _ProductRepository.CreateAsync(entity);
+            await _ProductRepository.CreateAsync(entity, cancellationToken);
         }   
 
         public async Task<IEnumerable<ProductResponseModel>> GetAllAsync(CancellationToken cancellationToken = default)

@@ -14,7 +14,7 @@ namespace Infrastructure.Data
             _productsCollection = mongoConfiguration.GetProductCollection();
         }
 
-        public async Task CreateAsync(Product newProduct) =>
+        public async Task CreateAsync(Product newProduct, CancellationToken cancellationToken  = default) =>
             await _productsCollection.InsertOneAsync(newProduct);
         
         public async Task<List<Product>> GetAllAsync(CancellationToken token = default) {

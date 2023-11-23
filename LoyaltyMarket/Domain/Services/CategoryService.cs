@@ -13,7 +13,7 @@ namespace Domain.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task CreateAsync(CategoryRequestModel model)
+        public async Task CreateAsync(CategoryRequestModel model, CancellationToken cancellationToken = default )
         {
             Category entity = model;
             await _categoryRepository.CreateAsync(entity);

@@ -14,7 +14,7 @@ namespace Infrastructure.Data
             _categorysCollection = mongoConfiguration.GetCategoryCollection();
         }
 
-        public async Task CreateAsync(Category newCategory) =>
+        public async Task CreateAsync(Category newCategory, CancellationToken token  = default) =>
             await _categorysCollection.InsertOneAsync(newCategory);
         
         public async Task<List<Category>> GetAllAsync(CancellationToken token = default) {
